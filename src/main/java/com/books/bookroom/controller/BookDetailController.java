@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.book.bookroom.service.BookDetailService;
 import com.books.bookroom.model.BookDetail;
 
-@Controller
+@RestController
 public class BookDetailController {
 	
 	@Autowired
