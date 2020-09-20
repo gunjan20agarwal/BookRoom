@@ -1,9 +1,13 @@
- package com.books.bookroom.model;
-// Generated 15 Sep, 2020 4:34:00 PM by Hibernate Tools 5.2.12.Final
+package com.books.bookroom.model;
+// Generated 19 Sep, 2020 2:32:54 PM by Hibernate Tools 5.2.12.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,22 +26,24 @@ public class BookTitle implements java.io.Serializable {
 	private String subCategory;
 	private String subject;
 	private String genre;
-	private String isForSection1;
-	private String isForSection2;
-	private String isForSection3;
-	private String isForSection4;
-	private String noOfCopies;
+	private Byte isForSection1;
+	private Byte isForSection2;
+	private Byte isForSection3;
+	private Byte isForSection4;
+	private Integer noOfCopies;
+	private Set bookDetails = new HashSet(0);
 
 	public BookTitle() {
 	}
 
-	public BookTitle(int titleId) {
+	public BookTitle(int titleId, String bookName) {
 		this.titleId = titleId;
+		this.bookName = bookName;
 	}
 
 	public BookTitle(int titleId, String isbnNumber, String bookName, String author, String publisher, String category,
-			String subCategory, String subject, String genre, String isForSection1, String isForSection2,
-			String isForSection3, String isForSection4, String noOfCopies) {
+			String subCategory, String subject, String genre, Byte isForSection1, Byte isForSection2,
+			Byte isForSection3, Byte isForSection4, Integer noOfCopies, Set bookDetails) {
 		this.titleId = titleId;
 		this.isbnNumber = isbnNumber;
 		this.bookName = bookName;
@@ -52,6 +58,7 @@ public class BookTitle implements java.io.Serializable {
 		this.isForSection3 = isForSection3;
 		this.isForSection4 = isForSection4;
 		this.noOfCopies = noOfCopies;
+		this.bookDetails = bookDetails;
 	}
 
 	@Id
@@ -74,7 +81,7 @@ public class BookTitle implements java.io.Serializable {
 		this.isbnNumber = isbnNumber;
 	}
 
-	@Column(name = "BookName", length = 45)
+	@Column(name = "BookName", nullable = false, length = 100)
 	public String getBookName() {
 		return this.bookName;
 	}
@@ -83,7 +90,7 @@ public class BookTitle implements java.io.Serializable {
 		this.bookName = bookName;
 	}
 
-	@Column(name = "Author", length = 45)
+	@Column(name = "Author", length = 100)
 	public String getAuthor() {
 		return this.author;
 	}
@@ -92,7 +99,7 @@ public class BookTitle implements java.io.Serializable {
 		this.author = author;
 	}
 
-	@Column(name = "Publisher", length = 45)
+	@Column(name = "Publisher", length = 100)
 	public String getPublisher() {
 		return this.publisher;
 	}
@@ -101,7 +108,7 @@ public class BookTitle implements java.io.Serializable {
 		this.publisher = publisher;
 	}
 
-	@Column(name = "Category", length = 45)
+	@Column(name = "Category", length = 100)
 	public String getCategory() {
 		return this.category;
 	}
@@ -110,7 +117,7 @@ public class BookTitle implements java.io.Serializable {
 		this.category = category;
 	}
 
-	@Column(name = "Sub_Category", length = 45)
+	@Column(name = "Sub_Category", length = 50)
 	public String getSubCategory() {
 		return this.subCategory;
 	}
@@ -119,7 +126,7 @@ public class BookTitle implements java.io.Serializable {
 		this.subCategory = subCategory;
 	}
 
-	@Column(name = "Subject", length = 45)
+	@Column(name = "Subject", length = 50)
 	public String getSubject() {
 		return this.subject;
 	}
@@ -137,49 +144,58 @@ public class BookTitle implements java.io.Serializable {
 		this.genre = genre;
 	}
 
-	@Column(name = "isForSection1", length = 45)
-	public String getIsForSection1() {
+	@Column(name = "isForSection1")
+	public Byte getIsForSection1() {
 		return this.isForSection1;
 	}
 
-	public void setIsForSection1(String isForSection1) {
+	public void setIsForSection1(Byte isForSection1) {
 		this.isForSection1 = isForSection1;
 	}
 
-	@Column(name = "isForSection2", length = 45)
-	public String getIsForSection2() {
+	@Column(name = "isForSection2")
+	public Byte getIsForSection2() {
 		return this.isForSection2;
 	}
 
-	public void setIsForSection2(String isForSection2) {
+	public void setIsForSection2(Byte isForSection2) {
 		this.isForSection2 = isForSection2;
 	}
 
-	@Column(name = "isForSection3", length = 45)
-	public String getIsForSection3() {
+	@Column(name = "isForSection3")
+	public Byte getIsForSection3() {
 		return this.isForSection3;
 	}
 
-	public void setIsForSection3(String isForSection3) {
+	public void setIsForSection3(Byte isForSection3) {
 		this.isForSection3 = isForSection3;
 	}
 
-	@Column(name = "isForSection4", length = 45)
-	public String getIsForSection4() {
+	@Column(name = "isForSection4")
+	public Byte getIsForSection4() {
 		return this.isForSection4;
 	}
 
-	public void setIsForSection4(String isForSection4) {
+	public void setIsForSection4(Byte isForSection4) {
 		this.isForSection4 = isForSection4;
 	}
 
-	@Column(name = "NoOfCopies", length = 45)
-	public String getNoOfCopies() {
+	@Column(name = "NoOfCopies")
+	public Integer getNoOfCopies() {
 		return this.noOfCopies;
 	}
 
-	public void setNoOfCopies(String noOfCopies) {
+	public void setNoOfCopies(Integer noOfCopies) {
 		this.noOfCopies = noOfCopies;
 	}
+
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bookTitle")
+//	public Set getBookDetails() {
+//		return this.bookDetails;
+//	}
+//
+//	public void setBookDetails(Set bookDetails) {
+//		this.bookDetails = bookDetails;
+//	}
 
 }

@@ -1,5 +1,5 @@
 package com.books.bookroom.model;
-// Generated 15 Sep, 2020 4:34:00 PM by Hibernate Tools 5.2.12.Final
+// Generated 19 Sep, 2020 2:32:54 PM by Hibernate Tools 5.2.12.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
